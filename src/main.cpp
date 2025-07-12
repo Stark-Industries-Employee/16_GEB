@@ -66,42 +66,9 @@ void partymode(void){
   digitalWrite(LED_B, 0);
   digitalWrite(LED_Ge, 0);
   delay(500);
+
+
   //Gambling
-
-  int delay1 = 50;          // Eigentlich kann ich das löschen
-  int delay2 = 50;
-  for(int i = 0; i << 25; i++){
-    tone(5, 4600);
-    digitalWrite(LED_Ge, HIGH);
-    delay(delay1);
-    noTone(5);
-    delay(delay2);
-    digitalWrite(LED_Ge, LOW);
-
-    tone(5, 4000);
-    digitalWrite(LED_B, HIGH);
-    delay(delay1);
-    noTone(5);
-    delay(delay2);
-    digitalWrite(LED_B, LOW);
-
-    tone(5, 3000);
-    digitalWrite(LED_Gr, HIGH);
-    delay(delay1);
-    noTone(5);
-    delay(delay2);
-    digitalWrite(LED_Gr, LOW);
-
-    tone(5, 3600);
-    digitalWrite(LED_R, HIGH);
-    delay(delay1);
-    noTone(5);
-    delay(delay2);
-    digitalWrite(LED_R, LOW);
-  }
-                            // Bis hier hin
-
-
   randomSeed(311613);
   long alk = random(1, 5);
 
