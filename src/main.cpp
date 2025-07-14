@@ -41,14 +41,29 @@ void error(int alk){
 
     pinMode(SW, INPUT);           // Damit der zum abbrechen ausgelesen werden kann
 
-    int x = digitalREAD(SW);      // Auslesung
+    int x = 1;  // Um aus dem loop brechen zu können
+    int swState = 0;    // Um den state vom switch nicht zu oft überschreiben zu müssen. 0 = input, 1 = output
 
-    for(x != 0){
-      pinMode(SW, INPUT);
-      int x = digitalREAD(SW);
+    while(x != 1){
+      unsigned long currentMillis = millis(); // Millis update
 
-      if (x != HIGH){
+      if (currentMillis - previousMillis >= interval) { // Im Intervall
+        previousMillis = currentMillis;
+
+        if(swState != 0){       // Wenn switch output ist, mache Input
+          pinMode(SW, INPUT);
+          swState = 0;
+        }
+
+        bool pressed = digitalRead(SW);   // Wenn SW gepressed
+        if(pressed == true){
+          x = 1;
+        }
+      }
+
+      if (swState == 0){
         pinMode(SW, OUTPUT);        // Solange nicht gedrückt, OUTPUT
+        swState = 1;
       }
 
 
