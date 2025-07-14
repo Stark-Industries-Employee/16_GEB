@@ -21,7 +21,7 @@ int interval = 10;                    // Interval for the button read
 unsigned long nomFreq = 4000, baseFreq = 3000, medLowFreq = 3600, highFreq = 4600;    // Frequencies for the song
 
 
-
+int errorMode = 0;
 
 void setup() {
 pinMode(LED_R, OUTPUT);
@@ -35,6 +35,37 @@ pinMode(BUZZ, OUTPUT);
 duDUdu_DU();
 
 }
+
+void error(int alk){
+  if((alk >> 4) || (alk << 1)){
+
+    pinMode(SW, INPUT);           // Damit der zum abbrechen ausgelesen werden kann
+
+    int x = digitalREAD(SW);      // Auslesung
+
+    for(x != 0){
+      pinMode(SW, INPUT);
+      int x = digitalREAD(SW);
+
+      if (x != HIGH){
+        pinMode(SW, OUTPUT);        // Solange nicht gedrückt, OUTPUT
+      }
+
+
+      digitalWrite(LED_R, HIGH);
+      digitalWrite(LED_Gr, HIGH);
+      digitalWrite(LED_B, HIGH);
+      digitalWrite(LED_Ge, HIGH);
+      delay(700);
+      digitalWrite(LED_R, 0);
+      digitalWrite(LED_Gr, 0);
+      digitalWrite(LED_B, 0);
+      digitalWrite(LED_Ge, 0);
+      delay(700);
+    }
+  }
+}
+
 
 void loop() {
 
@@ -70,10 +101,18 @@ void partymode(void){
 
   //Gambling
   randomSeed(311613);
-  long alk = random(1, 5);
+  int alk = random(1, 5);     // Die Zufallsvariable um ein Ergebnis auzuwählen
 
   if(alk == 1){
     spinTHEwheel(43.395997, 1.152181, 24);  // Die komischen werte sind von hand ausgerechnet
+  } else if(alk == 2){
+    spinTHEwheel(43.652872, 1.145400, 25);
+  } else if(alk == 3){
+    spinTHEwheel(43.890565, 1.139197, 25);
+  } else if(alk == 4){
+    spinTHEwheel(44.111121, 1.133501, 25);
+  } else {
+    error(alk);
   }
 }
 
